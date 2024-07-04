@@ -1,17 +1,17 @@
-package example;
+package envertin;
 
 import arc.*;
 import arc.util.*;
-import mindustry.*;
-import mindustry.content.*;
+import envertin.content.EnvertinBlocks;
+import envertin.content.EnvertinItems;
+import envertin.content.EnvertinLiquids;
 import mindustry.game.EventType.*;
-import mindustry.gen.*;
 import mindustry.mod.*;
 import mindustry.ui.dialogs.*;
 
-public class ExampleJavaMod extends Mod{
+public class EnvertinMain extends Mod{
 
-    public ExampleJavaMod(){
+    public EnvertinMain(){
         Log.info("Loaded ExampleJavaMod constructor.");
 
         //listen for game load event
@@ -31,6 +31,10 @@ public class ExampleJavaMod extends Mod{
     @Override
     public void loadContent(){
         Log.info("Loading some example content.");
+        EnvertinItems.load();
+        EnvertinLiquids.load();
+
+        EnvertinBlocks.load();
     }
 
 }
