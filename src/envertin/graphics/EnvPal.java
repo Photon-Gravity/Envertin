@@ -11,5 +11,12 @@ public class EnvPal {
 	sulfur = Color.valueOf("807754"),
 	dryfilm = Color.valueOf("ce97b9"),
 	neodymium = Color.valueOf("524d4f"),
+
+	acid = Color.valueOf("b0af80"),
+	distilledWater = Color.valueOf("87b1c5"),
+	hydrogenSulfide = Color.valueOf("bba076"),
+
+	sulfuricSmoke = Color.valueOf("120f00"),
+
 	outline = Color.valueOf("121413");
 }

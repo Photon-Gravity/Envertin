@@ -2,13 +2,15 @@ package envertin.graphics;
 
 import arc.Core;
 import arc.graphics.Color;
+import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
 import arc.util.Eachable;
 import mindustry.entities.units.BuildPlan;
 import mindustry.gen.Building;
-import mindustry.graphics.Drawf;
 import mindustry.world.Block;
 import mindustry.world.draw.DrawBlock;
+
+import static envertin.util.EnvConstant.px;
 
 public class DrawColor extends DrawBlock {
 
@@ -28,13 +30,11 @@ public class DrawColor extends DrawBlock {
 	public void draw(Building build) {
 		TextureRegion bottom = Core.atlas.find("white");
 
-		bottom.width *= build.block.size * 32;
-		bottom.height *= build.block.size * 32;
+		float size = build.block.size * 32 * (1-paddingFract) * px;
 
-		bottom.width *= 1-paddingFract;
-		bottom.height *= 1-paddingFract;
-
-		Drawf.liquid(bottom, build.x, build.y, 1f, color);
+		Draw.color(color);
+		Draw.rect(bottom, build.x, build.y, size, size);
+		Draw.color(Color.white);
 	}
 
 	@Override
