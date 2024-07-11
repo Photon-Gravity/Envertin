@@ -4,6 +4,7 @@ import envertin.graphics.DrawColor;
 import envertin.graphics.EnvFx;
 import envertin.graphics.EnvPal;
 import envertin.type.RuinedBuilding;
+import mindustry.content.Fx;
 import mindustry.gen.Sounds;
 import mindustry.type.Category;
 import mindustry.type.LiquidStack;
@@ -29,17 +30,43 @@ public class EnvertinBlocks {
 	public static Block
 			ancientFloor,
 			ancientVent, ancientFoundation, ruinedAncientForge,
+			ventAdapter,
 			sulfurBurner, hydrogenBurner,
-			reclaimedAncientForge, molybdenumSmelter;
+			reclaimedAncientForge;
 	public static void load(){
 		//environment
 		ancientFloor = new Floor("ancient-floor"){{
 			variants = 5;
 		}};
 		ancientVent = new SteamVent("ancient-vent"){{
+			variants = 0;
 			attributes.set(Attribute.steam, 0f);
 			attributes.set(EnvertinAttributes.hydrogen, 1f);
 			blendGroup = ancientFloor;
+			effect = EnvFx.ventHydrogen;
+		}};
+		//production
+		ventAdapter = new AttributeCrafter("vent-adapter"){{
+			requirements(Category.production, with(antimony, 45, debris, 25));
+			attribute = EnvertinAttributes.hydrogen;
+			minEfficiency = 9f - 0.0001f;
+			baseEfficiency = 0f;
+			displayEfficiency = false;
+			craftEffect = Fx.none;
+			drawer = new DrawMulti(
+					new DrawColor(EnvPal.outline, 0.2f),
+					new DrawLiquidTile(hydrogen, 1f),
+					new DrawDefault()
+			);
+			craftTime = 120f;
+			size = 3;
+			ambientSound = Sounds.hum;
+			ambientSoundVolume = 0.06f;
+			hasLiquids = true;
+			boostScale = 1f / 9f;
+			itemCapacity = 0;
+			outputLiquid = new LiquidStack(hydrogen, 12/s);
+			liquidCapacity = 60f;
 		}};
 		ancientFoundation = new Floor("ancient-foundation"){{
 			attributes.set(EnvertinAttributes.ancientFoundations, 1f);
@@ -68,7 +95,7 @@ public class EnvertinBlocks {
 		hydrogenBurner = new ConsumeGenerator("hydrogen-burner"){{
 			size = 3;
 			consumeLiquid(hydrogen, 4/s);
-			outputLiquid = new LiquidStack(distilledWater, 4/s);
+			outputLiquid = new LiquidStack(distilledWater, 1/s);
 			powerProduction = 50/s;
 			drawer = new DrawMulti(
 					new DrawColor(EnvPal.outline),

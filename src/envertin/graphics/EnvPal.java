@@ -18,5 +18,8 @@ public class EnvPal {
 
 	sulfuricSmoke = Color.valueOf("120f00"),
 
+	hydrogenLight = Color.valueOf("d1efff"),
+	hydrogenDark = Color.valueOf("6569c9"),
+
 	outline = Color.valueOf("121413");
 }
