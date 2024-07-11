@@ -3,6 +3,7 @@ package envertin.content;
 import envertin.graphics.DrawColor;
 import envertin.graphics.EnvFx;
 import envertin.graphics.EnvPal;
+import envertin.type.RaycastPylon;
 import mindustry.type.Category;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
@@ -19,9 +20,15 @@ import static mindustry.content.Liquids.hydrogen;
 import static mindustry.type.ItemStack.with;
 
 public class EnvertinBlocks {
-	public static Block sulfurBurner, hydrogenBurner;
+	public static Block raycastPylon, sulfurBurner, hydrogenBurner;
+
 	public static void load(){
 		//power
+		raycastPylon = new RaycastPylon("raycast-pylon"){{
+			size = 1;
+			range = 15;
+			requirements(Category.power, with(antimony, 10, debris, 5));
+		}};
 		sulfurBurner = new ConsumeGenerator("sulfur-burner"){{
 			size = 2;
 			consumeItem(sulfur);
