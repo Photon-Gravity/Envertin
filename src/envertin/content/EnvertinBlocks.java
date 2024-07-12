@@ -6,11 +6,13 @@ import envertin.graphics.EnvPal;
 import envertin.type.RuinedBuilding;
 import mindustry.content.Fx;
 import mindustry.gen.Sounds;
+import envertin.type.RaycastPylon;
 import mindustry.type.Category;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.SteamVent;
+import mindustry.world.blocks.power.Battery;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.draw.DrawDefault;
@@ -31,8 +33,10 @@ public class EnvertinBlocks {
 			ancientFloor,
 			ancientVent, ancientFoundation, ruinedAncientForge,
 			ventAdapter,
-			sulfurBurner, hydrogenBurner,
+			raycastPylon, receptor, capacitor, sulfurBurner, hydrogenBurner,
 			reclaimedAncientForge;
+
+
 	public static void load(){
 		//environment
 		ancientFloor = new Floor("ancient-floor"){{
@@ -78,6 +82,27 @@ public class EnvertinBlocks {
 			blendGroup = ancientFloor;
 		}};
 		//power
+		raycastPylon = new RaycastPylon("raycast-pylon"){{
+			size = 1;
+			range = 15;
+			consumesPower = outputsPower = true;
+			fogRadius = 1;
+			consumePowerBuffered(20);
+			requirements(Category.power, with(antimony, 10, debris, 5));
+		}};
+		receptor = new Battery("receptor"){{
+			size = 1;
+			consumePowerBuffered(100);
+			requirements(Category.power, with(antimony, 4, debris, 1));
+		}};
+
+		capacitor = new Battery("capacitor"){{
+			size = 1;
+			consumePowerBuffered(1000);
+			requirements(Category.power, with(antimony, 20, molybdenum, 5));
+			emptyLightColor =  EnvPal.powerDark;
+			fullLightColor =  EnvPal.powerLight;
+		}};
 		sulfurBurner = new ConsumeGenerator("sulfur-burner"){{
 			size = 2;
 			consumeItem(sulfur);
