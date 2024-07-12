@@ -11,5 +11,7 @@ public class EnvPal {
 	sulfur = Color.valueOf("807754"),
 	dryfilm = Color.valueOf("ce97b9"),
 	neodymium = Color.valueOf("524d4f"),
-	outline = Color.valueOf("121413");
+	outline = Color.valueOf("121413"),
+	powerLight = Color.valueOf("ffd9a8"),
+	powerDark = Color.valueOf("ce6956");
 }

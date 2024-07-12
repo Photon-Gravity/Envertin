@@ -12,6 +12,7 @@ import mindustry.gen.Building;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
+import mindustry.world.blocks.power.Battery;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.PowerGraph;
 import mindustry.world.blocks.power.PowerNode;
@@ -65,7 +66,7 @@ public class RaycastPylon extends BeamNode {
 
 				if(other != null && other.block.hasPower && other.team == Vars.player.team() && !(other.block instanceof PowerNode)){
 					pierced.add(other);
-					if(other instanceof RaycastPylonBuild){
+					if(other instanceof RaycastPylonBuild || other instanceof Battery.BatteryBuild){
 						maxLen = j;
 						dest = other;
 						break;
@@ -109,7 +110,7 @@ public class RaycastPylon extends BeamNode {
 			Draw.color(laserColor1, laserColor2, (1f - power.graph.getSatisfaction()) * 0.86f + Mathf.absin(3f, 0.1f));
 			Draw.alpha(Renderer.laserOpacity);
 			float w = laserWidth + Mathf.absin(pulseScl, pulseMag);
-			if(dests[rotation] != null && links[rotation].wasVisible && !(links[rotation] instanceof RaycastPylonBuild && ((RaycastPylonBuild)links[rotation]).getLink() == this)){
+			if(dests[rotation] != null && links[rotation].wasVisible && (!(links[rotation] instanceof RaycastPylonBuild && ((RaycastPylonBuild)links[rotation]).getLink() == this) || links[rotation].id < id)){
 				int dst = Math.max(Math.abs(dests[rotation].x - tile.x),  Math.abs(dests[rotation].y - tile.y));
 
 				//don't draw lasers for adjacent blocks
@@ -165,7 +166,7 @@ public class RaycastPylon extends BeamNode {
 					//power nodes do NOT play nice with beam nodes, do not touch them as that forcefully modifies their links
 					if(other != null && other.block.hasPower && other.block.connectedPower && other.team == team && !(other.block instanceof PowerNode)){
 						pierced.add(other);
-						if(other instanceof RaycastPylonBuild){
+						if(other instanceof RaycastPylonBuild || other instanceof Battery.BatteryBuild){
 							links[rotation] = other;
 							dests[rotation] = world.tile(tile.x + j * dir.x, tile.y + j * dir.y);
 							pierced.remove(other);

@@ -7,6 +7,7 @@ import envertin.type.RaycastPylon;
 import mindustry.type.Category;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
+import mindustry.world.blocks.power.Battery;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.draw.DrawDefault;
 import mindustry.world.draw.DrawFlame;
@@ -20,14 +21,30 @@ import static mindustry.content.Liquids.hydrogen;
 import static mindustry.type.ItemStack.with;
 
 public class EnvertinBlocks {
-	public static Block raycastPylon, sulfurBurner, hydrogenBurner;
+	public static Block raycastPylon, receptor, capacitor, sulfurBurner, hydrogenBurner;
 
 	public static void load(){
 		//power
 		raycastPylon = new RaycastPylon("raycast-pylon"){{
 			size = 1;
 			range = 15;
+			consumesPower = outputsPower = true;
+			fogRadius = 1;
+			consumePowerBuffered(20);
 			requirements(Category.power, with(antimony, 10, debris, 5));
+		}};
+		receptor = new Battery("receptor"){{
+			size = 1;
+			consumePowerBuffered(100);
+			requirements(Category.power, with(antimony, 4, debris, 1));
+		}};
+
+		capacitor = new Battery("capacitor"){{
+			size = 1;
+			consumePowerBuffered(1000);
+			requirements(Category.power, with(antimony, 20, molybdenum, 5));
+			emptyLightColor =  EnvPal.powerDark;
+			fullLightColor =  EnvPal.powerLight;
 		}};
 		sulfurBurner = new ConsumeGenerator("sulfur-burner"){{
 			size = 2;
