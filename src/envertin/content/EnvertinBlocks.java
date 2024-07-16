@@ -1,6 +1,7 @@
 package envertin.content;
 
 import envertin.graphics.DrawColor;
+import envertin.graphics.DrawGrindingWheels;
 import envertin.graphics.EnvFx;
 import envertin.graphics.EnvPal;
 import envertin.type.RuinedBuilding;
@@ -15,6 +16,7 @@ import mindustry.world.blocks.environment.SteamVent;
 import mindustry.world.blocks.power.Battery;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.production.AttributeCrafter;
+import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.draw.DrawDefault;
 import mindustry.world.draw.DrawFlame;
 import mindustry.world.draw.DrawLiquidTile;
@@ -34,7 +36,7 @@ public class EnvertinBlocks {
 			ancientVent, ancientFoundation, ruinedAncientForge,
 			ventAdapter,
 			raycastPylon, receptor, capacitor, sulfurBurner, hydrogenBurner,
-			reclaimedAncientForge;
+			reclaimedAncientForge, recycler;
 
 
 	public static void load(){
@@ -142,6 +144,20 @@ public class EnvertinBlocks {
 			outputItem = with(molybdenum, 1)[0];
 			craftTime = 4 * s;
 			requirements(Category.crafting, with(debris, 200, antimony, 150));
+		}};
+		recycler = new GenericCrafter("recycler"){{
+			size = 3;
+			craftEffect = EnvFx.molybdenicDust;
+			consumeItem(debris, 3);
+			consumePower(100/s);
+			craftTime = 3 * s;
+			outputItems = with(molybdenum, 2);
+			drawer = new DrawMulti(
+					new DrawColor(EnvPal.outline),
+					new DrawGrindingWheels(),
+					new DrawDefault()
+			);
+			requirements(Category.crafting, with(antimony, 80, molybdenum, 10));
 		}};
 	}
 }

@@ -20,6 +20,9 @@ public class EnvPal {
 
 	hydrogenLight = Color.valueOf("d1efff"),
 	hydrogenDark = Color.valueOf("6569c9"),
+	metalLight = Color.valueOf("868982"),
+	metal = Color.valueOf("4d524d"),
+	metalDark = Color.valueOf("262927"),
 
 	outline = Color.valueOf("121413"),
 	powerLight = Color.valueOf("ffd9a8"),
