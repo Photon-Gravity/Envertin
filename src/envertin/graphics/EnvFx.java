@@ -5,7 +5,6 @@ import arc.graphics.g2d.Fill;
 import arc.math.geom.Vec2;
 import mindustry.entities.Effect;
 import mindustry.graphics.Layer;
-import mindustry.graphics.Pal;
 
 import static arc.graphics.g2d.Draw.alpha;
 import static arc.graphics.g2d.Draw.color;
@@ -44,10 +43,32 @@ public class EnvFx {
 					Fill.circle(e.x + v.x, e.y + v.y, rand.random(1.2f, 3.5f) + e.fslope() * 1.1f);
 				}
 			}).layer(Layer.darkness - 1),
-			molybdenicDust = new Effect(40, e -> {
+			debrisDust = new Effect(40, e -> {
+				float z = Draw.z();
 				randLenVectors(e.id, 5, 3f + e.fin() * 8f, (x, y) -> {
-					color(EnvPal.molybdenum, Pal.stoneGray, e.fout());
+					color(EnvPal.molybdenum, EnvPal.cragsilt, e.fin());
+					Draw.z(99);
 					Fill.square(e.x + x, e.y + y, e.fout() * 2f + 0.5f, 45);
+					Draw.z(110);
+					Fill.square(e.x + x, e.y + y, e.fout() * 2f + 0.5f, 45);
+
 				});
+				Draw.z(z);
+			}),
+			acidicVapour = new Effect(12*s, e -> {
+				color(EnvPal.acidicVapour);
+
+				float z = Draw.z();
+				Draw.z(111);
+
+				rand.setSeed(e.id);
+				float len = rand.random(4f) + 18f;
+
+				e.scaled(e.lifetime * rand.random(0.3f, 1f), b -> {
+					alpha(b.fout() * 0.8f);
+					v.trns(45, len * b.fin());
+					Fill.circle(e.x + v.x, e.y + v.y, 1.5f * b.fin() + 0.5f + Math.min(b.fin() * 4, 1));
+				});
+				Draw.z(z);
 			});
 }

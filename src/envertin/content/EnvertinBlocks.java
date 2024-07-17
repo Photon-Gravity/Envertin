@@ -1,13 +1,10 @@
 package envertin.content;
 
-import envertin.graphics.DrawColor;
-import envertin.graphics.DrawGrindingWheels;
-import envertin.graphics.EnvFx;
-import envertin.graphics.EnvPal;
+import envertin.graphics.*;
+import envertin.type.RaycastPylon;
 import envertin.type.RuinedBuilding;
 import mindustry.content.Fx;
 import mindustry.gen.Sounds;
-import envertin.type.RaycastPylon;
 import mindustry.type.Category;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
@@ -17,14 +14,11 @@ import mindustry.world.blocks.power.Battery;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.draw.DrawDefault;
-import mindustry.world.draw.DrawFlame;
-import mindustry.world.draw.DrawLiquidTile;
-import mindustry.world.draw.DrawMulti;
+import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 
 import static envertin.content.EnvertinItems.*;
-import static envertin.content.EnvertinLiquids.distilledWater;
+import static envertin.content.EnvertinLiquids.*;
 import static envertin.util.EnvConstant.px;
 import static envertin.util.EnvConstant.s;
 import static mindustry.content.Liquids.hydrogen;
@@ -36,7 +30,7 @@ public class EnvertinBlocks {
 			ancientVent, ancientFoundation, ruinedAncientForge,
 			ventAdapter,
 			raycastPylon, receptor, capacitor, sulfurBurner, hydrogenBurner,
-			reclaimedAncientForge, recycler;
+			reclaimedAncientForge, recycler, dissolver;
 
 
 	public static void load(){
@@ -147,17 +141,39 @@ public class EnvertinBlocks {
 		}};
 		recycler = new GenericCrafter("recycler"){{
 			size = 3;
-			craftEffect = EnvFx.molybdenicDust;
+			craftEffect = EnvFx.debrisDust;
 			consumeItem(debris, 3);
 			consumePower(100/s);
 			craftTime = 3 * s;
-			outputItems = with(molybdenum, 2);
+			outputItems = with(molybdenum, 2, cragsilt, 3);
 			drawer = new DrawMulti(
 					new DrawColor(EnvPal.outline),
 					new DrawGrindingWheels(),
 					new DrawDefault()
 			);
 			requirements(Category.crafting, with(antimony, 80, molybdenum, 10));
+		}};
+		dissolver = new GenericCrafter("dissolver"){{
+			size = 2;
+			itemCapacity = 8;
+			liquidCapacity = 40;
+			consumePower(35/s);
+			consumeItem(cragsilt);
+			consumeLiquid(acid, 12/s);
+			outputLiquid = new LiquidStack(slurry, 18/s);
+			craftTime = 1.5f*s;
+			updateEffect = EnvFx.acidicVapour;
+			updateEffectChance = 0.04f;
+			drawer = new DrawMulti(
+					new DrawColor(EnvPal.outline),
+					new DrawLiquidTile(acid),
+					new DrawBubbles(EnvPal.acidicVapour),
+					new DrawLiquidTile(slurry),
+					new DrawSpinItems(cragsilt, 270/s, 16*px),
+					new DrawRegion("-rotator", 360/s, true),
+					new DrawDefault()
+			);
+			requirements(Category.crafting, with(antimony, 30, debris, 40, molybdenum, 5));
 		}};
 	}
 }

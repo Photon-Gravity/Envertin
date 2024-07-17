@@ -4,7 +4,7 @@ import envertin.graphics.EnvPal;
 import mindustry.type.Item;
 
 public class EnvertinItems {
-	public static Item antimony, debris, molybdenum, sulfur, dryfilm, neodymium;
+	public static Item antimony, debris, molybdenum, cragsilt, sulfur, dryfilm, neodymium;
 	public static void load(){
 		antimony = new Item("antimony");
 		antimony.color = EnvPal.antimony;
@@ -15,6 +15,9 @@ public class EnvertinItems {
 
 		molybdenum = new Item("molybdenum");
 		molybdenum.color = EnvPal.molybdenum;
+
+		cragsilt = new Item("cragsilt");
+		cragsilt.color = EnvPal.cragsilt;
 
 		sulfur = new Item("sulfur");
 		sulfur.color = EnvPal.sulfur;

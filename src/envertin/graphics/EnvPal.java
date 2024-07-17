@@ -8,15 +8,19 @@ public class EnvPal {
 	antimony = Color.valueOf("cac5a3"),
 	debris = Color.valueOf("676d72"),
 	molybdenum = Color.valueOf("738a86"),
+	cragsilt = Color.valueOf("2e2c2b"),
 	sulfur = Color.valueOf("807754"),
 	dryfilm = Color.valueOf("ce97b9"),
 	neodymium = Color.valueOf("524d4f"),
 
 	acid = Color.valueOf("b0af80"),
 	distilledWater = Color.valueOf("87b1c5"),
+	slurry = Color.valueOf("60554c"),
 	hydrogenSulfide = Color.valueOf("bba076"),
+	nitrocaust = Color.valueOf("c3666b"),
 
 	sulfuricSmoke = Color.valueOf("120f00"),
+	acidicVapour = Color.valueOf("d3d3b5"),
 
 	hydrogenLight = Color.valueOf("d1efff"),
 	hydrogenDark = Color.valueOf("6569c9"),
