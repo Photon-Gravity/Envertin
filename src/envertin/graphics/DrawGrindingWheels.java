@@ -8,20 +8,20 @@ import mindustry.gen.Building;
 import mindustry.world.Block;
 import mindustry.world.draw.DrawRegion;
 
-import static envertin.util.EnvConstant.px;
+import static envertin.util.EnvVars.px;
 
 public class DrawGrindingWheels extends DrawRegion {
 	TextureRegion iconRegion, white;
 	Color[] wheelColors = new Color[]{EnvPal.metalLight, EnvPal.metal, EnvPal.metalDark};
 	int wheelCount = 5, teeth = 6;
 	float xOffset = -32*px, yOffset = -30*px,
-			rowOffset = 16*px, wheelSpacing = 12 * px,
-			width = 48*px, height = 12*px,
+			rowOffset = 24*px, wheelSpacing = 12 * px,
+			width = 40*px, height = 12*px,
 			rotationSpeed = 0.01f;
 	@Override
 	public void load(Block block) {
 		super.load(block);
-		iconRegion = Core.atlas.find(block.name + "-wheels-icon");
+		iconRegion = Core.atlas.find(block.name + "-wheel-icon");
 		white = Core.atlas.find("white");
 	}
 

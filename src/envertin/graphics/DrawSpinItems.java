@@ -8,9 +8,11 @@ import mindustry.type.Item;
 import mindustry.world.Block;
 import mindustry.world.draw.DrawRegion;
 
+import static envertin.util.EnvVars.s;
+
 public class DrawSpinItems extends DrawRegion {
 	Item item;
-	float rotateSpeed, radius;
+	float rotateSpeed, radius, itemSpeedDifference = 10/s;
 	public DrawSpinItems(Item item, float rotateSpeed, float radius){
 		this.item = item;
 		this.rotateSpeed = rotateSpeed;
@@ -20,7 +22,7 @@ public class DrawSpinItems extends DrawRegion {
 	public void draw(Building build) {
 		rand.setSeed(build.id);
 		for(int i=0; i < build.items.get(item); i++){
-			float rotation = rand.random((float)Math.PI*2) + build.totalProgress()*rotateSpeed/180 * (float)Math.PI;
+			float rotation = rand.random((float)Math.PI*2) + build.totalProgress()*(rotateSpeed+i*itemSpeedDifference)/180 * (float)Math.PI;
 			float distance = rand.random(radius-Vars.itemSize/2) + Vars.itemSize/2; // prevent items from being stuck in the middle
 
 			float x = build.x + (float)Math.cos(rotation) * distance;
@@ -34,4 +36,5 @@ public class DrawSpinItems extends DrawRegion {
 	public TextureRegion[] icons(Block block) {
 		return new TextureRegion[]{};
 	}
+
 }

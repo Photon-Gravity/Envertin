@@ -10,7 +10,7 @@ import mindustry.gen.Building;
 import mindustry.world.Block;
 import mindustry.world.draw.DrawBlock;
 
-import static envertin.util.EnvConstant.px;
+import static envertin.util.EnvVars.px;
 
 public class DrawColor extends DrawBlock {
 

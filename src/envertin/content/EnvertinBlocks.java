@@ -1,6 +1,7 @@
 package envertin.content;
 
 import envertin.graphics.*;
+import envertin.type.Flarestack;
 import envertin.type.RaycastPylon;
 import envertin.type.RuinedBuilding;
 import mindustry.content.Fx;
@@ -19,8 +20,8 @@ import mindustry.world.meta.Attribute;
 
 import static envertin.content.EnvertinItems.*;
 import static envertin.content.EnvertinLiquids.*;
-import static envertin.util.EnvConstant.px;
-import static envertin.util.EnvConstant.s;
+import static envertin.util.EnvVars.px;
+import static envertin.util.EnvVars.s;
 import static mindustry.content.Liquids.hydrogen;
 import static mindustry.type.ItemStack.with;
 
@@ -30,7 +31,7 @@ public class EnvertinBlocks {
 			ancientVent, ancientFoundation, ruinedAncientForge,
 			ventAdapter,
 			raycastPylon, receptor, capacitor, sulfurBurner, hydrogenBurner,
-			reclaimedAncientForge, recycler, dissolver;
+			reclaimedAncientForge, recycler, dissolver, flarestack;
 
 
 	public static void load(){
@@ -145,6 +146,8 @@ public class EnvertinBlocks {
 			consumeItem(debris, 3);
 			consumePower(100/s);
 			craftTime = 3 * s;
+			ambientSound = Sounds.grinding;
+			ambientSoundVolume = 0.15f;
 			outputItems = with(molybdenum, 2, cragsilt, 3);
 			drawer = new DrawMulti(
 					new DrawColor(EnvPal.outline),
@@ -164,16 +167,30 @@ public class EnvertinBlocks {
 			craftTime = 1.5f*s;
 			updateEffect = EnvFx.acidicVapour;
 			updateEffectChance = 0.04f;
+			ambientSound = EnvertinSounds.dissolveLoop;
+			ambientSoundVolume = 0.1f;
 			drawer = new DrawMulti(
 					new DrawColor(EnvPal.outline),
 					new DrawLiquidTile(acid),
 					new DrawBubbles(EnvPal.acidicVapour),
 					new DrawLiquidTile(slurry),
-					new DrawSpinItems(cragsilt, 270/s, 16*px),
+					new DrawSpinItems(cragsilt, 230/s, 16*px),
 					new DrawRegion("-rotator", 360/s, true),
 					new DrawDefault()
 			);
 			requirements(Category.crafting, with(antimony, 30, debris, 40, molybdenum, 5));
+		}};
+		flarestack = new Flarestack("flarestack"){{
+			size = 1;
+			liquidCapacity = 6;
+			removeSpeed = 6/s;
+			consumePower(25/s);
+			drawer = new DrawMulti(
+				new DrawDefault(),
+				new DrawLiquidRegion(),
+				new DrawGlowRegion()
+			);
+			requirements(Category.crafting, with(debris, 20, molybdenum, 5));
 		}};
 	}
 }

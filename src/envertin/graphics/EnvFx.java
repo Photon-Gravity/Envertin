@@ -9,7 +9,7 @@ import mindustry.graphics.Layer;
 import static arc.graphics.g2d.Draw.alpha;
 import static arc.graphics.g2d.Draw.color;
 import static arc.math.Angles.randLenVectors;
-import static envertin.util.EnvConstant.s;
+import static envertin.util.EnvVars.s;
 import static mindustry.content.Fx.rand;
 
 public class EnvFx {
@@ -68,6 +68,22 @@ public class EnvFx {
 					alpha(b.fout() * 0.8f);
 					v.trns(45, len * b.fin());
 					Fill.circle(e.x + v.x, e.y + v.y, 1.5f * b.fin() + 0.5f + Math.min(b.fin() * 4, 1));
+				});
+				Draw.z(z);
+			}),
+			chemicalSmoke = new Effect(12*s, e -> {
+				color(e.color);
+
+				float z = Draw.z();
+				Draw.z(111);
+
+				rand.setSeed(e.id);
+				float len = rand.random(4f) + 44f;
+
+				e.scaled(e.lifetime * rand.random(0.3f, 1f), b -> {
+					alpha(b.fout() * 0.5f);
+					v.trns(45, len * b.fin());
+					Fill.circle(e.x + v.x, e.y + v.y, 3f * b.fin() + 0.5f + Math.min(b.fin() * 8, 1));
 				});
 				Draw.z(z);
 			});
