@@ -20,7 +20,7 @@ public class DrawSpinItems extends DrawRegion {
 	}
 	@Override
 	public void draw(Building build) {
-		rand.setSeed(build.id);
+		rand.setSeed((long) build.id * item.id);
 		for(int i=0; i < build.items.get(item); i++){
 			float rotation = rand.random((float)Math.PI*2) + build.totalProgress()*(rotateSpeed+i*itemSpeedDifference)/180 * (float)Math.PI;
 			float distance = rand.random(radius-Vars.itemSize/2) + Vars.itemSize/2; // prevent items from being stuck in the middle
