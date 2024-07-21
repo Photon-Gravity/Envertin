@@ -7,6 +7,7 @@ import envertin.type.RuinedBuilding;
 import mindustry.content.Fx;
 import mindustry.gen.Sounds;
 import mindustry.type.Category;
+import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.Floor;
@@ -31,7 +32,7 @@ public class EnvertinBlocks {
 			ancientVent, ancientFoundation, ruinedAncientForge,
 			ventAdapter,
 			raycastPylon, receptor, capacitor, sulfurBurner, hydrogenBurner,
-			reclaimedAncientForge, recycler, dissolver, flarestack;
+			reclaimedAncientForge, recycler, dissolver, macerator, flarestack;
 
 
 	public static void load(){
@@ -179,6 +180,29 @@ public class EnvertinBlocks {
 					new DrawDefault()
 			);
 			requirements(Category.crafting, with(antimony, 30, debris, 40, molybdenum, 5));
+		}};
+		macerator = new GenericCrafter("macerator"){{
+			size = 2;
+
+			consumePower(45/s);
+			consumeItem(debris, 2);
+			outputItem = new ItemStack(cragsilt, 3);
+
+			craftEffect = EnvFx.cragsiltDust;
+			drawer = new DrawMulti(
+				new DrawColor(EnvPal.outline),
+				new DrawGrindingWheels(){{
+					teeth = 4;
+					width = 28*px;
+					height=14*px;
+					xOffset=24*px;
+					yOffset=21*px;
+					rowOffset = 20*px;
+					wheelSpacing = 14*px;
+				}},
+				new DrawDefault()
+			);
+			requirements(Category.crafting, with(antimony, 36, molybdenum, 4));
 		}};
 		flarestack = new Flarestack("flarestack"){{
 			size = 1;

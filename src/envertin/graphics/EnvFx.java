@@ -86,5 +86,14 @@ public class EnvFx {
 					Fill.circle(e.x + v.x, e.y + v.y, 3f * b.fin() + 0.5f + Math.min(b.fin() * 8, 1));
 				});
 				Draw.z(z);
+			}),
+			cragsiltDust = new Effect(40, e -> {
+				float z = Draw.z();
+				randLenVectors(e.id, 5, 3f + e.fin() * 8f, (x, y) -> {
+					color(EnvPal.cragsilt);
+					Draw.z(99);
+					Fill.square(e.x + x, e.y + y, e.fout() * 2f + 0.5f, 45);
+				});
+				Draw.z(z);
 			});
 }

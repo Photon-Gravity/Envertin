@@ -12,9 +12,9 @@ import static envertin.util.EnvVars.px;
 
 public class DrawGrindingWheels extends DrawRegion {
 	TextureRegion iconRegion, white;
-	Color[] wheelColors = new Color[]{EnvPal.metalLight, EnvPal.metal, EnvPal.metalDark};
-	int wheelCount = 5, teeth = 6;
-	float xOffset = -32*px, yOffset = -30*px,
+	public Color[] wheelColors = new Color[]{EnvPal.metalLight, EnvPal.metal, EnvPal.metalDark};
+	public int wheelCount = 5, teeth = 6;
+	public float xOffset = -32*px, yOffset = -30*px,
 			rowOffset = 24*px, wheelSpacing = 12 * px,
 			width = 40*px, height = 12*px,
 			rotationSpeed = 0.01f;
