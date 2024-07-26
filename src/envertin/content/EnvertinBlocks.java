@@ -7,11 +7,11 @@ import envertin.type.RuinedBuilding;
 import mindustry.content.Fx;
 import mindustry.gen.Sounds;
 import envertin.type.RaycastPylon;
+import mindustry.graphics.CacheLayer;
 import mindustry.type.Category;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
-import mindustry.world.blocks.environment.Floor;
-import mindustry.world.blocks.environment.SteamVent;
+import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.power.Battery;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.production.AttributeCrafter;
@@ -30,8 +30,11 @@ import static mindustry.type.ItemStack.with;
 
 public class EnvertinBlocks {
 	public static Block
-			ancientFloor,
+			corrodilith, stibnite, ancientFloor, deepAcid, shallowAcid, corrodilithAcid, stibniteAcid,
+			corrodilithWall, stibniteWall,
+			corrodilithBoulder, stibniteBoulder,
 			ancientVent, ancientFoundation, ruinedAncientForge,
+			antimonyOre,
 			ventAdapter,
 			raycastPylon, receptor, capacitor, sulfurBurner, hydrogenBurner,
 			reclaimedAncientForge;
@@ -39,15 +42,80 @@ public class EnvertinBlocks {
 
 	public static void load(){
 		//environment
+		corrodilith = new Floor("corrodilith"){{
+			variants = 6;
+		}};
+
+		stibnite = new Floor("stibnite"){{
+			variants = 6;
+		}};
 		ancientFloor = new Floor("ancient-floor"){{
 			variants = 5;
 		}};
+
+		deepAcid = new Floor("deep-acid"){{
+			variants=0;
+			liquidDrop = EnvertinLiquids.acid;
+			cacheLayer = CacheLayer.water;
+			isLiquid=true;
+		}};
+		shallowAcid = new Floor("shallow-acid"){{
+			variants=0;
+			liquidDrop = EnvertinLiquids.acid;
+			cacheLayer = CacheLayer.water;
+			isLiquid=true;
+		}};
+		corrodilithAcid = new Floor("corrodilith-acid"){{
+			variants=6;
+			liquidDrop = EnvertinLiquids.acid;
+			cacheLayer = CacheLayer.water;
+			isLiquid=true;
+		}};
+		stibniteAcid = new Floor("stibnite-acid"){{
+			variants=6;
+			liquidDrop = EnvertinLiquids.acid;
+			cacheLayer = CacheLayer.water;
+			isLiquid=true;
+		}};
+		corrodilithWall = new StaticWall("corrodilith-wall"){{
+			variants = 6;
+			corrodilith.asFloor().wall = this;
+		}};
+		stibniteWall = new StaticWall("stibnite-wall"){{
+			variants = 6;
+			corrodilith.asFloor().wall = this;
+		}};
+
+		corrodilithBoulder = new Prop("corrodilith-boulder"){{
+			variants = 6;
+			corrodilith.asFloor().decoration =this;
+		}};
+
+		stibniteBoulder = new Prop("stibnite-boulder"){{
+			variants = 6;
+			corrodilith.asFloor().decoration =this;
+		}};
+
 		ancientVent = new SteamVent("ancient-vent"){{
 			variants = 0;
 			attributes.set(Attribute.steam, 0f);
 			attributes.set(EnvertinAttributes.hydrogen, 1f);
 			blendGroup = ancientFloor;
 			effect = EnvFx.ventHydrogen;
+		}};
+		//ores/points of interest
+		antimonyOre = new OreBlock("antimony-ore"){{
+			itemDrop = antimony;
+			variants = 4;
+		}};
+		ancientFoundation = new Floor("ancient-foundation"){{
+					attributes.set(EnvertinAttributes.ancientFoundations, 1f);
+					variants = 0;
+				}};
+		ruinedAncientForge = new RuinedBuilding("ruined-ancient-forge"){{
+			attributes.set(Attribute.steam, 0f);
+			attributes.set(EnvertinAttributes.ruinedForge, 1/16f);
+			blendGroup = ancientFloor;
 		}};
 		//production
 		ventAdapter = new AttributeCrafter("vent-adapter"){{
@@ -72,15 +140,7 @@ public class EnvertinBlocks {
 			outputLiquid = new LiquidStack(hydrogen, 12/s);
 			liquidCapacity = 60f;
 		}};
-		ancientFoundation = new Floor("ancient-foundation"){{
-			attributes.set(EnvertinAttributes.ancientFoundations, 1f);
-			variants = 0;
-		}};
-		ruinedAncientForge = new RuinedBuilding("ruined-ancient-forge"){{
-			attributes.set(Attribute.steam, 0f);
-			attributes.set(EnvertinAttributes.ruinedForge, 1/16f);
-			blendGroup = ancientFloor;
-		}};
+
 		//power
 		raycastPylon = new RaycastPylon("raycast-pylon"){{
 			size = 1;
